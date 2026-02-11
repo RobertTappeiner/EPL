@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url(/img/screen/landscape.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#canvas-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+canvas {
+    background-color: black;
+    display: block;
+    border: 3px solid white;
+    border-radius: 20px;
+}
+
+#toggle-fullscreen {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+#fullscreen-icon {
+    height: 50px;
+}
+
+#fullscreen-div:fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
