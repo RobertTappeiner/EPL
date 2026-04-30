@@ -146,13 +146,15 @@ button:not(.fullscreen-btn):hover {
     inset: 0; 
     z-index: 10; 
     display: grid; 
-} 
+}
+
 .start-screen-img { 
     grid-area: 1 / 1; 
     background-image: url('img/9_intro_outro_screens/start/startscreen_1.png'); 
     background-size: cover; 
     background-position: center; 
 } 
+
 .start-screen-content { 
     grid-area: 1 / 1; 
     display: flex; 
@@ -165,6 +167,7 @@ button:not(.fullscreen-btn):hover {
     width: 100%;
     max-width: 100%;
 } 
+
 .start-screen-btns { 
     display: flex; 
     justify-content: 
@@ -205,7 +208,6 @@ button:not(.fullscreen-btn):hover {
     flex-grow: 1;
     object-fit: contain;
 }
-
 
 footer {
     display: flex;
@@ -256,7 +258,6 @@ footer {
 }
 
 /* Warning overlay */
-
 .warning-container {
     display: none;
     flex-direction: column;
