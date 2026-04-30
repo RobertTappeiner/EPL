@@ -1,42 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="img/pollo.ico">
-    <link rel="stylesheet" href="style.css">
-    <script src="models/drawable-object.class.js"></script>
-    <script src="models/movable-object.class.js"></script>
-    <script src="models/character.class.js"></script>
-    <script src="models/chicken.class.js"></script>
-    <script src="models/status-bar.class.js"></script>
-    <script src="models/cloud.class.js"></script>  
-    <script src="models/world.class.js"></script>
-    <script src="models/background-object.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
-    <script src="models/throwable-object.class.js"></script>
-    <script src="models/endboss.class.js"></script>
-    <script src="levels/level1.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/fullscreen.js"></script>
-    
-    <title>EL POLLO LOCO</title>
-</head>
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Pollo Loco</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./img/pollo.ico" />
 
-<body onload="init()">
-
+    <!-- JS FILES -->
+    <script src="./models/audio-manager.class.js" defer></script>
+    <script src="./js/fullscreen.js"></script>
+    <!-- Base classes -->
+    <script src="./models/drawable-object.class.js" defer></script>
+    <script src="./models/movable-object.class.js" defer></script>
+    <!-- Game objects -->
+    <script src="./models/chicken.class.js" defer></script>
+    <script src="./models/small-chicken.class.js" defer></script>
+    <script src="./models/character.class.js" defer></script>
+    <script src="./models/cloud.class.js" defer></script>
+    <script src="./models/background-object.class.js" defer></script>
+    <script src="./models/keyboard.class.js" defer></script>
+    <script src="./models/endboss.class.js" defer></script>
+    <!-- UI elements -->
+    <script src="./models/status-bar.class.js" defer></script>
+    <script src="./models/coin-bar.class.js" defer></script>
+    <script src="./models/bottle-bar.class.js" defer></script>
+    <script src="./models/endboss-bar.class.js" defer></script>
+    <!-- Collectibles and separators -->
+    <script src="./models/separator-object.class.js" defer></script>
+    <script src="./models/collectible-object.class.js" defer></script>
+    <script src="./models/coin.class.js" defer></script>
+    <script src="./models/bottle.class.js" defer></script>
+    <script src="./models/throwable-object.class.js" defer></script>
+    <script src="models/egg.class.js" defer></script>
+    <!-- Level classes -->
+    <script src="./models/level.class.js" defer></script>
+    <script src="./levels/level1.js" defer></script>
+    <!-- World helper systems -->
+    <script src="./systems/collision-system.js" defer></script>
+    <script src="./systems/bottle-system.js" defer></script>
+    <script src="./systems/enemy-spawner.js" defer></script>
+    <script src="./systems/collectibles-system.js" defer></script> 
+    <!-- Game initialisation classes -->
+    <script src="./models/world.class.js" defer></script>
+    <script src="./js/game.js" defer></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body onload="init()">
     <div id="fullscreen-div">
-        <h1>El Pollo Loco</h1>
-
-        <div id="canvas-wrapper">
-            <canvas id="canvas" width="720" height="480"></canvas>
-
-            <button id="toggle-fullscreen">
-                <img id="fullscreen-icon" src="/img/screen/fullscreen.png" alt="fullscreen">
+    <main id="game_wrapper" id="fullscreen-div" class="main-game-wrapper d-none">
+      <h1 class="outlined main-title">El Pollo Loco</h1>
+      <section class="game-content-wrapper">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <section class="upper-btn-container">
+          <button onclick="audioManager.toggleSound()">
+            <img
+                id="soundBtn"
+                src="./img/btn_sound.png"
+                alt="mute / unmute button"
+            />
             </button>
+          <button onclick="restartGame()">
+            <img src="./img/btn_restart.png" alt="restart button" />
+          </button>
+          <button onclick="stopGameFlow()">
+            <img src="./img/btn_close.png" alt="quit game button" />
+          </button>
+          <button id="toggle-fullscreen">
+            <img id="fullscreen-icon" src="/img/screen/fullscreen.png" alt="fullscreen">
+          </button>
+        </section>
+        <section class="mobile-control-buttons">
+          <div class="left-btns">
+            <button id="btn_throw">
+              <img
+                src="./img/arrow_throw.png"
+                alt="curved arrow pointing to the right, throw"
+              />
+            </button>
+            <button id="btn_jump">
+              <img
+                src="./img/arrow_upward.png"
+                alt="arrow pointing to the top, jump"
+              />
+            </button>
+          </div>
+          <div class="right-btns">
+            <button id="btn_left">
+              <img
+                src="./img/arrow_back.png"
+                alt="arrow pointing to the left, go left"
+              />
+            </button>
+            <button id="btn_right">
+              <img
+                src="./img/arrow_forward.png"
+                alt="arrow pointing to the right, go right"
+              />
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+    <!-- Start game overlay -->
+    <section id="start_screen" class="start-screen">
+      <div class="start-screen-img"></div>
+      <div class="start-screen-content">
+        <h2 class="outlined">El Pollo Loco</h2>
+        <div class="start-screen-btns">
+          <button onclick="toggleInfoPannel()" id="btn_game_controls">
+            Game controls
+          </button>
+          <button onclick="startGameFlow()">Start game</button>
         </div>
+          <div id="game_story_container" class="game">
+            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+          </div>
+          <div
+            id="game_controls_container"
+            class="game-controls-container d-none"
+          >
+            <h3 class="outlined">Game controls</h3>
+            <img
+              class="game-controls-img"
+              src="./img/game_controls.png"
+              alt="s picture describing the game controls"
+            />
+        </div>
+        <footer>
+          <a class="outlined" href="./html/legal-notice.html">
+          Impressum
+          </a>
+          <div class="vertical-divider"></div>
+          <a class="outlined" href="./html/privacy-policy.html">
+          Datenschutz
+          </a>
+        </footer>
+      </div>
+    </section>
+    <!-- You lost overlay -->
+    <section id="overlay_you_lost" class="you-lost d-none">
+      <div class="you-lost-btns">
+        <button onclick="restartGame()">Restart game</button>
+        <button onclick="stopGameFlow()">Exit game</button>
+      </div>
+      <img
+        class="you-lost-img"
+        src="./img/you_won_you_lost/you_lost_a.png"
+        alt="you lost"
+      />
+    </section>
+    <!-- You won, overlay -->
+    <section id="overlay_you_won" class="you-won d-none">
+      <div class="you-won-btns">
+        <button onclick="restartGame()">Restart game</button>
+        <button onclick="stopGameFlow()">Exit game</button>
+      </div>
+      <img
+        class="you-won-img"
+        src="./img/you_won_you_lost/you_won_a.png"
+        alt="you won"
+      />
+    </section>
+    <!-- Orientation warning overlay -->
+    <section id="orientation_warning" class="warning-container">
+      <span>Enjoy the game in landscape mode only!</span>
+      <span>Please rotate your device!</span>
+      <img
+        class="salsa-bottle"
+        src="./img/6_salsa_bottle/salsa_bottle.png"
+        alt="a salsa bottle"
+      />
+    </section>
     </div>
-
-</body>
+  </body>
 </html>

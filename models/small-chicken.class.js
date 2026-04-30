@@ -1,15 +1,15 @@
 /**
- * Represents one of the enemies in game, a normal-sized chicken.
+ * Represents one of the enemies in game, a small chick.
  * @extends MovableObject
  */
-class Chicken extends MovableObject {
+class SmallChicken extends MovableObject {
   /**
-   * Defines the chicken's height and width, the vertical positioning
+   * Defines the chick's height and width, the vertical positioning
    * and the initial walking direction.
    */
-  height = 60;
+  height = 55;
   width = 40;
-  y = 360;
+  y = 365;
   direction = "left";
 
   /**
@@ -19,36 +19,36 @@ class Chicken extends MovableObject {
   currentImg = 0;
 
   /**
-   * * Image paths for the chicken's walking animation.
+   * * Image paths for the chick's walking animation.
    *  @type {string[]}
    */
   IMAGES_WALKING = [
-    "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-    "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-    "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
 
   /**
-   * * Image paths for the chicken's dead state.
+   * * Image paths for the chick's dead state.
    *  @type {string[]}
    */
-  IMAGES_DEAD = ["img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
+  IMAGES_DEAD = ["img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
   /**
-   * Initializes a chicken enemy at the given position and sets up its patrol area.
-   * The chicken moves between the defined left and right boundaries and plays a
+   * Initializes a chick enemy at the given position and sets up its patrol area.
+   * The chick moves between the defined left and right boundaries and plays a
    * death sound only once when killed. Also loads the walking and dead animations.
    *
-   * @param {number} x - the horizontal position from which the chicken spawn
+   * @param {number} x - the horizontal position from which the chick spawn
    * @param {number} sectionStart - the left border of movement, once they get here, the go right.
    * @param {number} sectionEnd - the right border of movement, once they get here, the go left.
    */
   constructor(x, sectionStart, sectionEnd) {
-    super().loadImage("img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
+    super().loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.x = x;
     this.sectionStart = sectionStart;
     this.sectionEnd = sectionEnd;
-    this.speed = -(0.15 + Math.random() * 0.25);
+    this.speed = -(0.25 + Math.random() * 0.25);
     this.otherDirection = false;
     this.deadSoundPlayed = false;
     this.loadImages(this.IMAGES_WALKING);
@@ -65,7 +65,7 @@ class Chicken extends MovableObject {
   }
 
   /**
-   * Starts the chicken's update loops.
+   * Starts the chick's update loops.
    * One interval handles movement and state changes,
    * and another handles animation frames.
    * All intervals are registered in the world so they can be stopped
@@ -88,7 +88,7 @@ class Chicken extends MovableObject {
   }
 
   /**
-   * Enforces the chicken's patrol boundaries.
+   * Enforces the chick's patrol boundaries.
    * Once they reach the left of right limit, they change the walking direction.
    */
   handleMovementBoundaries() {
@@ -112,11 +112,11 @@ class Chicken extends MovableObject {
    * appropriate sound effect.
    */
   handleDeathState() {
-    if (this.isDead() && !this.deadSoundPlayed) {
+    if (this.isDead()) {
       this.speed = 0;
       audioManager.playOneTimeForObject(
         this,
-        audioManager.bigChickenDeadSound,
+        audioManager.smallChickenDeadSound,
         "deadSoundPlayed",
         0.3,
       );

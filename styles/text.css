@@ -1,0 +1,26 @@
+main {
+    background: rgba(240, 240, 240, 0.7);
+    border-radius: 12px; 
+    backdrop-filter: blur(2px);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 40px 20px;
+    text-align: justify;
+}
+
+main h1 {
+    color: white;
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw + 1rem, 3rem);
+}
+main h2 {
+    color: white;
+    font-size: clamp(1.8rem, 4vw + 1rem, 3rem);
+}
+main a {
+    color: blue;
+    text-decoration: underline;
+    font-size: 16px;
+    word-break: break-all;
+}

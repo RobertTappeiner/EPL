@@ -1,41 +1,288 @@
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-image: url(/img/screen/landscape.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+/* General styling rules */
+*{
+    box-sizing: border-box;
 }
 
-#canvas-wrapper {
+body {
+    margin: 0;
+    background-image: url('./img/5_background/background_img_main.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Bungee';
+    overflow-x: hidden;
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Bungee';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/WesternBangBang-Regular.ttf') format('ttf'); 
+}
+
+h1, h2 {
+    color: azure;
+    text-decoration: wavy;
+    font-size: clamp(1.8rem, 4vw + 1rem, 3rem);
+}
+
+.outlined { 
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+a:hover {
+    transform: scale(1.1);
+    transition: 125ms ease-in-out;
+}
+
+.d-none {
+    display: none !important;
+}
+
+
+/* Canvas styling */
+
+.main-game-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 40px 10px;
+}
+
+.game-content-wrapper {
+    display: flex;
+    justify-content: center;
     position: relative;
-    display: inline-block;
 }
 
 canvas {
-    background-color: black;
+    border: 2px solid white;
+    border-style: double;
+    border-radius: 8px;
     display: block;
-    border: 3px solid white;
-    border-radius: 20px;
+    /* added now */
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    max-height: 100vh;
 }
 
-#toggle-fullscreen {
+.upper-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: clamp(8px, 3vw, 20px);
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
+    top: 6px;
+    right: 8px;
 }
 
-#fullscreen-icon {
-    height: 50px;
+.upper-btn-container button img {
+    width: clamp(20px, 4vw, 20px);
+    height: auto;
+    max-width: 28px;
+}
+
+.upper-btn-container button {
+    padding: clamp(2px, 1vw, 6px);
+    height: auto;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #f2f7ef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #c76758;
+}
+
+button:not(.fullscreen-btn):hover {
+    background-color: #fdeba8;
+}
+
+.btn-active {
+    background-color: #f6ba61;
+    border: 1px solid #a0220a;
+}
+
+.mobile-control-buttons {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    bottom: 4px;
+}
+
+.mobile-control-buttons button {
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 4px 16px;
+    border-radius: 20%;
+    background-color: rgba(220, 220, 220, 0.7);
+}
+
+.right-btns, 
+.left-btns {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+/* Start screen overlay */
+
+.start-screen { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 10; 
+    display: grid; 
+} 
+.start-screen-img { 
+    grid-area: 1 / 1; 
+    background-image: url('img/9_intro_outro_screens/start/startscreen_1.png'); 
+    background-size: cover; 
+    background-position: center; 
+} 
+.start-screen-content { 
+    grid-area: 1 / 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 40px; 
+    padding: 0 40px; 
+    background: rgba(240, 240, 240, 0.5); 
+    overflow-y: auto;
+    width: 100%;
+    max-width: 100%;
+} 
+.start-screen-btns { 
+    display: flex; 
+    justify-content: 
+    center; gap: 2rem; 
+    flex-wrap: wrap; 
+} 
+
+.start-screen-btns button {
+    padding: 8px 45px;
+    font-size: 20px;
+}
+
+.game img { 
+    width: clamp(280px, 60vw, 600px);
+    height: auto;
+    border-radius: 20px;
+    border: 2px solid brown;
+}
+
+.game-controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.game-controls-container h3 {
+    color: black;
+}
+
+.game-controls-img {
+    width: clamp(200px, 50vw, 600px);
+    height: clamp(150px, 40vh, 400px);
+    flex-shrink: 1;
+    flex-grow: 1;
+    object-fit: contain;
+}
+
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 40px;
+}
+
+.vertical-divider {
+    height: 32px;
+    width: 2px;
+    background-color: black;
+}
+
+/* You won/You lost overlay */
+.you-lost,
+.you-won {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.you-lost-img,
+.you-won-img {
+    max-width: 600px;
+    max-height: 80vh;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.you-lost-btns,
+.you-won-btns {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.you-lost-btns button,
+.you-won-btns button {
+    padding: 8px 32px;
+}
+
+/* Warning overlay */
+
+.warning-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: fixed;
+    background-color: #fbc862;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+
+.warning-container span {
+    word-break: break-word;
+    text-align: center;
+}
+
+.salsa-bottle {
+    height: 100px;
+    width: 100px;
+    animation: rotateBottle 1s ease-in-out infinite;
 }
 
 #fullscreen-div:fullscreen {
@@ -45,3 +292,69 @@ canvas {
     align-items: center;
 }
 
+#fullscreen-div:fullscreen canvas {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+}
+
+@keyframes rotateBottle {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+/* Media queries */
+
+@media (pointer: coarse) and (orientation: landscape) {
+    .mobile-control-buttons {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 480px) {
+    .main-title {
+        display: none;
+    }
+
+    .main-game-wrapper {
+        height: 100vh;   
+        min-height: 100vh;
+        padding: 0;   
+    }
+
+    .game-content-wrapper {
+        height: 100%;       
+        overflow: hidden;   
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+     .main-title {
+        display: none;
+    }
+}
