@@ -1,0 +1,66 @@
+/* --- Grundlayout --- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: url('../img/5_background/background_img_main.png') no-repeat center center fixed;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  max-width: 900px;
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+
+/* --- Überschriften --- */
+h1, h2 {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+/* --- Text & Listen --- */
+p, ul, li, span {
+  font-size: 1.1rem;
+}
+
+ul {
+  margin-left: 20px;
+}
+
+a {
+  color: #ffcc00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p, ul, li {
+    font-size: 1rem;
+  }
+}
