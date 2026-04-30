@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function onFullscreenChange() {
     if (document.fullscreenElement === container) {
-      icon.src = "./img/screen/fullscreen_exit.png"; // exit icon
+      icon.src = "/epl/img/screen/fullscreen_exit.png"; // exit icon
     } else {
-      icon.src = "./img/screen/fullscreen.png"; // fullscreen icon
+      icon.src = "/epl/img/screen/fullscreen.png"; // fullscreen icon
     }
   }
 
